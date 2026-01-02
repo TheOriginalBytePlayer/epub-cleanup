@@ -51,8 +51,7 @@ def merge_consecutive_spans(soup):
             # Allow text nodes that are only whitespace between spans
             if isinstance(next_sibling, NavigableString):
                 if str(next_sibling).strip() == '':
-                    # Store reference to whitespace and continue
-                    temp_ws = next_sibling
+                    # Continue past whitespace
                     next_sibling = next_sibling.next_sibling
                     continue
                 else:
@@ -223,10 +222,10 @@ def process_epub(input_path, output_path=None):
         # Process all XHTML/HTML files
         chapter_number = 1
         for file_path in temp_path.rglob('*.xhtml'):
-            process_file(file_path, chapter_number)
+            chapter_number = process_file(file_path, chapter_number)
         
         for file_path in temp_path.rglob('*.html'):
-            process_file(file_path, chapter_number)
+            chapter_number = process_file(file_path, chapter_number)
         
         # Create new EPUB
         create_epub(temp_path, output_path)

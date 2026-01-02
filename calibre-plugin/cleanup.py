@@ -41,8 +41,7 @@ def merge_consecutive_spans(soup):
             # Allow text nodes that are only whitespace between spans
             if isinstance(next_sibling, NavigableString):
                 if str(next_sibling).strip() == '':
-                    # Store reference to whitespace and continue
-                    temp_ws = next_sibling
+                    # Continue past whitespace
                     next_sibling = next_sibling.next_sibling
                     continue
                 else:
