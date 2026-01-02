@@ -11,7 +11,6 @@ import sys
 import os
 import zipfile
 import tempfile
-import shutil
 from pathlib import Path
 from bs4 import BeautifulSoup, NavigableString, Tag
 
