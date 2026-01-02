@@ -1,0 +1,66 @@
+┌─────────────────────────────────────────────────────────────────┐
+│                   EPUB Cleanup Configuration                     │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                   │
+│  ┌─ Span Cleanup Options ────────────────────────────────────┐  │
+│  │                                                             │  │
+│  │  ☑ Clean-up Redundant Spans in text                        │  │
+│  │                                                             │  │
+│  │  Perform Clean-Up in:  [All Text Files           ▼]        │  │
+│  │                                                             │  │
+│  └─────────────────────────────────────────────────────────────┘  │
+│                                                                   │
+│  ┌─ Chapter Heading Options ─────────────────────────────────┐  │
+│  │                                                             │  │
+│  │  ☑ Add/Renumber Chapter Headings                           │  │
+│  │                                                             │  │
+│  │  Add/Modify Chapter Headings: [All Text Files     ▼]       │  │
+│  │                                                             │  │
+│  │  Start Numbering at:          [  1  ]                      │  │
+│  │                                                             │  │
+│  │  Initial Chapter Text:        [Chapter            ]        │  │
+│  │                                                             │  │
+│  │  Numbering Style:             [Numeric (eg 1, 2, 3...) ▼]  │  │
+│  │                                                             │  │
+│  │  Text Following Number:       [                   ]        │  │
+│  │                                                             │  │
+│  │  ☐ Insert Chapter Heading as <p> in any file where the     │  │
+│  │    first paragraph of the file is neither blank nor an     │  │
+│  │    existing chapter heading                                │  │
+│  │                                                             │  │
+│  └─────────────────────────────────────────────────────────────┘  │
+│                                                                   │
+│                                                                   │
+│                          [ Apply ]  [ Cancel ]                   │
+│                                                                   │
+└─────────────────────────────────────────────────────────────────┘
+
+Dialog Behavior:
+═══════════════
+
+1. When "Clean-up Redundant Spans" is UNCHECKED:
+   - "Perform Clean-Up in:" combobox is DISABLED
+
+2. When "Add/Renumber Chapter Headings" is UNCHECKED:
+   - All chapter-related controls are DISABLED:
+     • Add/Modify Chapter Headings combobox
+     • Start Numbering at spin box
+     • Initial Chapter Text field
+     • Numbering Style combobox
+     • Text Following Number field
+     • Insert Chapter Heading checkbox
+
+3. Apply Button State:
+   - ENABLED: When at least one of the two main checkboxes is checked
+   - DISABLED: When both main checkboxes are unchecked
+
+4. Preference Persistence:
+   - "Initial Chapter Text" - saved and restored
+   - "Numbering Style" - saved and restored
+   - "Text Following Number" - saved and restored
+
+5. Auto-detection:
+   - "Start Numbering at" automatically detects chapter number from:
+     a) Filename (e.g., "chapter_5.xhtml" → 5)
+     b) File content (first paragraph after <body>)
+     c) Defaults to 1 if not detected
