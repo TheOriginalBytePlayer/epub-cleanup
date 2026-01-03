@@ -58,8 +58,8 @@ def test_merge_consecutive_spans():
     print("  ✓ Multiple groups merged correctly")
     
     # Test case 5: Spans separated by newlines (hard returns) should merge with normalized whitespace
-    html = '''<div><span style="span2">I</span> 
-<span style="span2">am badly</span><span style="span2"> formatted</span></div>'''
+    # Testing the exact scenario from the problem statement where spans are separated by hard returns
+    html = '<div><span style="span2">I</span> \n<span style="span2">am badly</span><span style="span2"> formatted</span></div>'
     soup = BeautifulSoup(html, 'lxml-xml')
     merge_consecutive_spans(soup)
     result = str(soup)
