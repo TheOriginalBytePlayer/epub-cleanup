@@ -66,7 +66,7 @@ All user preferences (except scope selections) are remembered between sessions f
 2. Create a ZIP file containing all the plugin files:
    ```bash
    cd calibre-plugin
-   zip -r epub-cleanup-plugin.zip __init__.py cleanup.py config_dialog.py plugin.json
+   zip -r epub-cleanup-plugin.zip __init__.py main.py cleanup.py config_dialog.py plugin.json
    ```
 
 3. In Calibre:
@@ -114,7 +114,22 @@ You can also install by selecting all files in the `calibre-plugin` directory an
 
 ## Development
 
-The plugin uses the same core logic as the standalone script but integrates with Calibre's book editing infrastructure and provides a rich configuration dialog.
+The plugin follows calibre's modern EditBookToolPlugin architecture:
+- `__init__.py` - Plugin metadata
+- `main.py` - Tool implementation (EPUBCleanupTool class)
+- `cleanup.py` - Core cleanup functions
+- `config_dialog.py` - Configuration dialog
+- `plugin.json` - Plugin menu/toolbar configuration
+
+The plugin uses the same core logic as the standalone script but integrates with Calibre's book editing infrastructure through the Tool-based architecture and provides a rich configuration dialog.
+
+## Plugin Architecture
+
+This plugin follows calibre's recommended best practices for EditBookToolPlugin:
+- Uses the Tool class pattern from `calibre.gui2.tweak_book.plugin`
+- Tool implementation is in `main.py` (as required by calibre conventions)
+- Minimal `__init__.py` with only metadata
+- Integrates with editor's container and boss APIs
 
 ## Troubleshooting
 

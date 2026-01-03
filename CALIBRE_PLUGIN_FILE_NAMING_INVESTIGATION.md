@@ -151,4 +151,11 @@ The `ui.py` requirement mentioned in the issue **does not apply** to this plugin
 
 ## Next Steps
 
-Decision needed: Should we refactor to the modern Tool-based approach, or keep the current working legacy implementation?
+**IMPLEMENTATION COMPLETE** - The plugin has been refactored to follow calibre's modern best practices:
+
+✅ Created `main.py` with Tool-based implementation  
+✅ Updated `__init__.py` to minimal metadata only  
+✅ Updated packaging script to include `main.py`  
+✅ Updated documentation to reflect new architecture  
+
+The plugin now follows calibre's recommended structure for EditBookToolPlugin with Tool classes in `main.py`.
