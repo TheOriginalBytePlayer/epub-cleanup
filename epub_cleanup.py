@@ -96,8 +96,10 @@ def merge_consecutive_spans(soup):
                     for content in current.contents:
                         merged_content.append(content.extract() if isinstance(content, Tag) else str(content))
                 elif isinstance(current, NavigableString):
-                    # Include whitespace text nodes
-                    merged_content.append(str(current))
+                    # Include whitespace text nodes, but normalize newlines to spaces
+                    # since hard returns have no effect on HTML display
+                    text = str(current).replace('\n', ' ').replace('\r', ' ')
+                    merged_content.append(text)
                 
                 current = current.next_sibling
             
