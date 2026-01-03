@@ -57,6 +57,20 @@ def test_merge_consecutive_spans():
     assert len(spans) == 2, f"Expected 2 spans, got {len(spans)}"
     print("  ✓ Multiple groups merged correctly")
     
+    # Test case 5: Spans separated by newlines (hard returns) should merge with normalized whitespace
+    # Testing the exact scenario from the problem statement where spans are separated by hard returns
+    html = '<div><span style="span2">I</span> \n<span style="span2">am badly</span><span style="span2"> formatted</span></div>'
+    soup = BeautifulSoup(html, 'lxml-xml')
+    merge_consecutive_spans(soup)
+    result = str(soup)
+    
+    soup_result = BeautifulSoup(result, 'lxml-xml')
+    spans = soup_result.find_all('span')
+    assert len(spans) == 1, f"Expected 1 span, got {len(spans)}"
+    # Check that newline was converted to space
+    assert spans[0].get_text() == "I am badly formatted", f"Expected 'I am badly formatted', got '{spans[0].get_text()}'"
+    print("  ✓ Spans separated by newlines merged with normalized whitespace")
+    
     print("All merge_consecutive_spans tests passed!\n")
 
 
