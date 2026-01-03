@@ -6,7 +6,7 @@ cd "$(dirname "$0")/calibre-plugin"
 echo "Packaging EPUB Cleanup Calibre Plugin..."
 
 # Create the plugin ZIP file
-zip -r ../epub-cleanup-plugin.zip __init__.py main.py cleanup.py config_dialog.py plugin.json
+zip -r ../epub-cleanup-plugin.zip __init__.py main.py cleanup.py config_dialog.py plugin-import-name-epub_cleanup.txt
 
 echo "Plugin packaged as epub-cleanup-plugin.zip"
 echo ""

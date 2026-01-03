@@ -60,23 +60,31 @@ All user preferences (except scope selections) are remembered between sessions f
 
 ## Installation
 
-### Method 1: From Source
+### Method 1: Using the Package Script (Recommended)
 
-1. Navigate to the `calibre-plugin` directory
-2. Create a ZIP file containing all the plugin files:
+1. Navigate to the repository root directory
+2. Run the packaging script:
    ```bash
-   cd calibre-plugin
-   zip -r epub-cleanup-plugin.zip __init__.py main.py cleanup.py config_dialog.py plugin.json
+   ./package-plugin.sh
    ```
-
 3. In Calibre:
    - Go to **Preferences** → **Plugins** → **Load plugin from file**
    - Select the `epub-cleanup-plugin.zip` file
    - Restart Calibre when prompted
 
-### Method 2: Direct Installation
+### Method 2: Manual Packaging
 
-You can also install by selecting all files in the `calibre-plugin` directory and adding them as a plugin.
+1. Navigate to the `calibre-plugin` directory
+2. Create a ZIP file containing all the plugin files:
+   ```bash
+   cd calibre-plugin
+   zip -r ../epub-cleanup-plugin.zip __init__.py main.py cleanup.py config_dialog.py plugin-import-name-epub_cleanup.txt
+   ```
+
+3. In Calibre:
+   - Go to **Preferences** → **Plugins** → **Load plugin from file**
+   - Select the `epub-cleanup-plugin.zip` file (located in the parent directory)
+   - Restart Calibre when prompted
 
 ## Usage
 
@@ -119,7 +127,7 @@ The plugin follows calibre's modern EditBookToolPlugin architecture:
 - `main.py` - Tool implementation (EPUBCleanupTool class)
 - `cleanup.py` - Core cleanup functions
 - `config_dialog.py` - Configuration dialog
-- `plugin.json` - Plugin menu/toolbar configuration
+- `plugin-import-name-epub_cleanup.txt` - Empty file enabling multi-file plugin imports (required by Calibre for plugins with multiple .py files; enables imports like `from calibre_plugins.epub_cleanup.module import ...`)
 
 The plugin uses the same core logic as the standalone script but integrates with Calibre's book editing infrastructure through the Tool-based architecture and provides a rich configuration dialog.
 
@@ -135,8 +143,9 @@ This plugin follows calibre's recommended best practices for EditBookToolPlugin:
 
 If the plugin doesn't appear after installation:
 1. Check that you're using Calibre 5.0 or higher
-2. Make sure all files are properly included in the plugin ZIP
-3. Check Calibre's plugin debug log for any errors
+2. Make sure all required files are included in the plugin ZIP, especially `plugin-import-name-epub_cleanup.txt` which is essential for Calibre to load the plugin correctly
+3. Check Calibre's plugin debug log for any errors (Preferences → Miscellaneous → Debug device detection)
+4. Verify the plugin was installed successfully in Preferences → Plugins → Edit book tool plugins
 
 If the dialog doesn't appear or shows errors:
 1. Make sure PyQt5 is available (should be included with Calibre)
