@@ -8,7 +8,6 @@ This module defines the tool that appears in the Edit Book plugins menu.
 """
 
 from calibre.gui2.tweak_book.plugin import Tool
-from calibre.ebooks.oeb.polish.container import get_container
 from calibre.ebooks.oeb.base import OEB_DOCS
 
 
@@ -40,7 +39,8 @@ class EPUBCleanupTool(Tool):
         from calibre.gui2 import get_icons
         
         # Create an action for the tool
-        ac = QAction(get_icons('images/icon.png', allow_user_override=False), 'EPUB Cleanup', self.gui)
+        # Use a built-in calibre icon since we don't bundle a custom icon
+        ac = QAction(get_icons('edit_input.png'), 'EPUB Cleanup', self.gui)
         
         if not for_toolbar:
             # Register a keyboard shortcut for the menu action only
@@ -73,16 +73,15 @@ class EPUBCleanupTool(Tool):
         current_file_index = 0
         
         try:
-            # Try to get the currently editing file
-            from calibre.gui2.tweak_book.boss import get_boss
-            boss = get_boss()
-            if boss and hasattr(boss, 'currently_editing'):
-                current_file_name = boss.currently_editing
+            # Use boss instance from parent Tool class
+            if self.boss and hasattr(self.boss, 'currently_editing'):
+                current_file_name = self.boss.currently_editing
                 if current_file_name and current_file_name in text_files:
                     current_file_index = text_files.index(current_file_name)
                     with container.open(current_file_name, 'rb') as f:
                         current_file_content = f.read().decode('utf-8')
-        except:
+        except Exception:
+            # If we can't get the current file, we'll use the first one below
             pass
         
         # If we couldn't get current file, use the first one
@@ -91,7 +90,8 @@ class EPUBCleanupTool(Tool):
             try:
                 with container.open(current_file_name, 'rb') as f:
                     current_file_content = f.read().decode('utf-8')
-            except:
+            except Exception:
+                # If we can't read the file, continue without preview content
                 pass
         
         # Show configuration dialog
