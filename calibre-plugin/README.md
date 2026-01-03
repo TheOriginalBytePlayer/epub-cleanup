@@ -78,12 +78,12 @@ All user preferences (except scope selections) are remembered between sessions f
 2. Create a ZIP file containing all the plugin files:
    ```bash
    cd calibre-plugin
-   zip -r epub-cleanup-plugin.zip __init__.py main.py cleanup.py config_dialog.py plugin-import-name-epub_cleanup.txt
+   zip -r ../epub-cleanup-plugin.zip __init__.py main.py cleanup.py config_dialog.py plugin-import-name-epub_cleanup.txt
    ```
 
 3. In Calibre:
    - Go to **Preferences** → **Plugins** → **Load plugin from file**
-   - Select the `epub-cleanup-plugin.zip` file
+   - Select the `epub-cleanup-plugin.zip` file (located in the parent directory)
    - Restart Calibre when prompted
 
 ## Usage
@@ -127,7 +127,7 @@ The plugin follows calibre's modern EditBookToolPlugin architecture:
 - `main.py` - Tool implementation (EPUBCleanupTool class)
 - `cleanup.py` - Core cleanup functions
 - `config_dialog.py` - Configuration dialog
-- `plugin-import-name-epub_cleanup.txt` - Empty file enabling multi-file plugin imports
+- `plugin-import-name-epub_cleanup.txt` - Empty file enabling multi-file plugin imports (required by Calibre for plugins with multiple .py files; enables imports like `from calibre_plugins.epub_cleanup.module import ...`)
 
 The plugin uses the same core logic as the standalone script but integrates with Calibre's book editing infrastructure through the Tool-based architecture and provides a rich configuration dialog.
 
@@ -143,9 +143,9 @@ This plugin follows calibre's recommended best practices for EditBookToolPlugin:
 
 If the plugin doesn't appear after installation:
 1. Check that you're using Calibre 5.0 or higher
-2. Make sure all required files are included in the plugin ZIP (especially `plugin-import-name-epub_cleanup.txt`)
-3. Check Calibre's plugin debug log for any errors
-4. Verify the plugin was installed successfully in Preferences → Plugins
+2. Make sure all required files are included in the plugin ZIP, especially `plugin-import-name-epub_cleanup.txt` which is essential for Calibre to load the plugin correctly
+3. Check Calibre's plugin debug log for any errors (Preferences → Miscellaneous → Debug device detection)
+4. Verify the plugin was installed successfully in Preferences → Plugins → Edit book tool plugins
 
 If the dialog doesn't appear or shows errors:
 1. Make sure PyQt5 is available (should be included with Calibre)
