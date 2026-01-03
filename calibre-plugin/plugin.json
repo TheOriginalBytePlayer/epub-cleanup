@@ -1,8 +1,0 @@
-[
-    {
-        "type": "txt",
-        "name": "run.txt",
-        "tooltip": "Run EPUB Cleanup to merge redundant spans and add chapter headings",
-        "keyboard_shortcut": null
-    }
-]
