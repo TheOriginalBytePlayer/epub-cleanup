@@ -137,7 +137,8 @@ class EPUBCleanupTool(Tool):
         files_to_process.sort(key=lambda x: text_files.index(x) if x in text_files else 0)
         
         # Ensure any in-progress editing is saved to the container
-        self.boss.commit_all_editors_to_container()
+        if self.boss:
+            self.boss.commit_all_editors_to_container()
         
         # Process files
         chapter_number = config['start_number']
@@ -169,7 +170,8 @@ class EPUBCleanupTool(Tool):
                 f.write(processed_content.encode('utf-8'))
         
         # Mark the book as modified
-        self.boss.mark_book_as_modified()
+        if self.boss:
+            self.boss.mark_book_as_modified()
         
         # Show success message
         from calibre.gui2 import info_dialog
